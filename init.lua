@@ -17,7 +17,7 @@ local WARN_INTERVAL = 300 -- 5 minutes
 
 -- Register privilege.
 minetest.register_privilege("take_a_rest", {
-	description = "Allows to set peridically ban timer for any player.",
+  description = "Allows to set peridically ban timer for any player.",
   give_to_singleplayer = false
 })
 
@@ -54,13 +54,13 @@ end
 minetest.register_chatcommand("tar_time", {
   params = "<player_name> <seconds>",
   description = "Set max number of seconds for one game per 6 hours.",
-	privs = { take_a_rest = true },
+  privs = { take_a_rest = true },
 
-	func = function(name, params)
+  func = function(name, params)
     local pl, time = params:match("(%S+)%s+(.+)")
-		if not (pl and time) then
-			return false, "Usage: /tar_time <player> <seconds>"
-		end
+    if not (pl and time) then
+      return false, "Usage: /tar_time <player> <seconds>"
+    end
 
     local player = minetest.get_player_by_name(pl)
 
@@ -76,14 +76,14 @@ minetest.register_chatcommand("tar_time", {
     takearest.set_player_ban_time(player, time)
 
     return true, "Time for player " .. pl .. " set."
-	end
+  end
 })
 
 -- Set timer.
 local timer = 0
 minetest.register_globalstep(function(dtime)
-	timer = timer + dtime
-	if timer >= CHECK_INTERVAL then
+  timer = timer + dtime
+  if timer >= CHECK_INTERVAL then
     players = minetest.get_connected_players()
 
     for k, p in pairs(players) do
@@ -113,6 +113,6 @@ minetest.register_globalstep(function(dtime)
       end
     end
 
-		timer = 0
-	end
+  timer = 0
+  end
 end)
