@@ -36,16 +36,12 @@ function takearest.set_player_ban_time(player, time)
   local player_name = player:get_player_name()
 
   player:set_attribute(attr_ban_at, os.time() + time)
-  minetest.chat_send_player(
-    player_name,
-    "Ban at: " .. tostring(os.time() + time)
-  )
 
   minetest.chat_send_player(
     player_name,
     minetest.colorize(
       "#569874",
-      "You can play this game only " .. time .. " seconds for each 6 hours."
+      "You can play the game only " .. tostring(time/60.0) .. " minutes for each 6 hours."
     )
   )
 end
